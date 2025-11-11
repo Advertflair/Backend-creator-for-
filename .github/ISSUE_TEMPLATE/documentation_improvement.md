@@ -1,9 +1,10 @@
 ---
 name: Documentation Improvement
 about: Improve or add to the project's documentation
-title: '[DOCS] A brief, descriptive title'
+title: "[DOCS] A brief, descriptive title"
 labels: documentation
 assignees: ''
+
 ---
 
 ## 📚 Documentation Type

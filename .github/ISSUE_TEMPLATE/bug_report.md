@@ -1,9 +1,10 @@
 ---
 name: Bug Report
 about: Report a bug to help us improve
-title: '[BUG] A brief, descriptive title'
+title: "[BUG] A brief, descriptive title"
 labels: bug
 assignees: ''
+
 ---
 
 ## 🐛 Bug Description

@@ -1,9 +1,10 @@
 ---
 name: Feature Request
 about: Suggest an idea for this project
-title: '[FEATURE] A brief, descriptive title for the feature'
+title: "[FEATURE] A brief, descriptive title for the feature"
 labels: enhancement
 assignees: ''
+
 ---
 
 ## 🚀 Feature Description

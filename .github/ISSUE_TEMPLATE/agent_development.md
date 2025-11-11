@@ -1,9 +1,10 @@
 ---
 name: Agent Development Proposal
 about: Propose a new agent or improve an existing one
-title: '[AGENT] Proposal for...'
-labels: agent, enhancement
+title: "[AGENT] Proposal for..."
+labels: documentation, enhancement
 assignees: ''
+
 ---
 
 ## 🤖 Agent Name
