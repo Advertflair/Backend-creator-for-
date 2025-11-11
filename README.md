@@ -164,7 +164,7 @@ Let's push the boundaries of what's possible and build the next generation of de
 
 ## 💖 Acknowledgements
 
-This project stands on the shoulders of giants. Our multi-agent system would not be possible without the incredible advancements in Large Language Models.
+This project stands on the shoulders of giants and the spirit of open collaboration. Our multi-agent system would not be possible without the incredible advancements in Large Language Models.
 - We extend our sincere thanks to the teams behind **Google's Gemini**, **Anthropic's Claude**, and **OpenAI's GPT** for creating the foundational technology that powers our agents.
 - This project was built and deployed using **Google AI Studio** and **Google Cloud Run**.
 - Conceptual support and sponsorship provided by [**advertflair.com**](https://advertflair.com).

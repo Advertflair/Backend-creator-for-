@@ -46,20 +46,20 @@ Our goal is to create a tool that dramatically accelerates the development proce
 ```bash
 # 1. Fork the repository on GitHub.
 # 2. Clone your forked repository to your local machine.
-git clone https://github.com/YOUR_USERNAME/cloud-backend-builder.git
-cd cloud-backend-builder
+git clone https://github.com/Advertflair/Backend-creator-for-.git
+cd Backend-creator-for-
 
 # 3. Install the necessary dependencies.
 npm install
 
 # 4. Set up your environment variables.
-# Create a .env.local file in the root of the project.
-echo "VITE_GEMINI_API_KEY=your_api_key_here" > .env.local
+# This app uses an in-app modal to set the key, so a .env file is not required for local development.
+# Simply run the app and you will be prompted for your key.
 
 # 5. Start the local development server.
 npm run dev
 
-# 6. Open your browser and navigate to http://localhost:5173
+# 6. Open your browser and navigate to the local URL provided in your terminal.
 ```
 
 ---
@@ -119,7 +119,7 @@ We welcome all contributions, but here are some areas where you can make a big i
 
 ### 1. Real Deployment Implementation ⭐⭐⭐
 - **Status:** The current `DeploymentAgent` is a simulation.
-- **What's needed:** Implement real deployment logic using `exec` or similar to run Terraform commands, build Docker containers, and deploy to GCP/AWS. This is the most critical next step.
+- **What's needed:** Implement real deployment logic. This could involve using a backend service to securely execute Terraform commands, or guiding the user through client-side execution with clear instructions and checks. This is the most critical next step for the project's utility.
 
 ### 2. Advanced Circular Logic Detection ⭐⭐
 - **Status:** A basic `CircularLogicDetector` is in place.
@@ -139,9 +139,9 @@ We welcome all contributions, but here are some areas where you can make a big i
 
 1.  **Fork the repository** and create your branch from `main`.
 2.  If you've added code that should be tested, **add tests**.
-3.  Ensure the test suite passes (`npm test`).
-4.  Make sure your code lints (`npm run lint`).
-5.  Issue that pull request!
+3.  Ensure the test suite passes (run `npm test` if tests are configured).
+4.  Make sure your code lints and is formatted correctly.
+5.  Open a Pull Request, filling out the [PR template](/.github/PULL_REQUEST_TEMPLATE.md) completely.
 
 ---
 
@@ -149,7 +149,6 @@ We welcome all contributions, but here are some areas where you can make a big i
 
 - **GitHub Issues:** The best place to report bugs or request features. Please use the provided templates.
 - **GitHub Discussions:** For questions, sharing ideas, and connecting with other contributors.
-- **Discord:** Coming soon!
 
 ---
 
