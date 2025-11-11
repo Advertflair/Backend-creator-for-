@@ -45,9 +45,12 @@ export async function callGeminiApi(
     return text.trim();
   } catch (error: any) {
     console.error("Gemini API call failed:", error);
-    if (error.message.includes('API key not valid')) {
-        throw new Error('The provided Gemini API key is not valid or has been rate-limited. Please check your key and try again.');
+    const errorMessage = error.toString();
+
+    if (errorMessage.includes('API key not valid') || errorMessage.includes('API key expired') || errorMessage.includes('API_KEY_INVALID')) {
+        throw new Error('Your Gemini API key is invalid or has expired. Please go to Google AI Studio to generate a new key, then refresh this page and enter it.');
     }
-    throw new Error(`Failed to communicate with the AI model: ${error.message}`);
+    
+    throw new Error(`Failed to communicate with the AI model. Please check your network connection and API key. Details: ${errorMessage}`);
   }
 }
