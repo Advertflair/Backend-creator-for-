@@ -1,7 +1,6 @@
-
-import { GoogleGenAI, Type } from '@google/genai';
-import { GEMINI_MODEL } from '../constants';
+import { Type } from '@google/genai';
 import { AppConfig, AnalysisOutput } from '../types';
+import { callGeminiApi } from '../api/gemini';
 
 export async function runAnalysisAgent(
   frontendCode: string,
@@ -14,8 +13,6 @@ export async function runAnalysisAgent(
   if (!frontendCode.trim()) {
     throw new Error('Frontend code or description is empty.');
   }
-
-  const ai = new GoogleGenAI({ apiKey });
 
   const prompt = `You are a senior cloud architect. Analyze the provided frontend code/description and generate a structured backend plan in JSON format.
 
@@ -88,16 +85,7 @@ Generate a concise, well-structured backend plan. The plan must include the foll
   };
 
   try {
-    const response = await ai.models.generateContent({
-      model: GEMINI_MODEL,
-      contents: prompt,
-      config: {
-        responseMimeType: 'application/json',
-        responseSchema,
-      },
-    });
-
-    const resultJson = response.text.trim();
+    const resultJson = await callGeminiApi(apiKey, prompt, responseSchema);
     return JSON.parse(resultJson) as AnalysisOutput;
   } catch (error: any) {
     console.error("Error in Analysis Agent:", error);

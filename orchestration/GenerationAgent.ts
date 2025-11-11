@@ -1,11 +1,7 @@
-
-import { GoogleGenAI, Type } from '@google/genai';
-// FIX: Import all necessary code types
+import { Type } from '@google/genai';
 import { ProjectState, TerraformCode, BackendCode, CiCdCode, TestingCode, IntegrationCode, OperationsCode } from '../types';
-import { ArchitectureOutput } from './DesignAgent';
-import { GEMINI_MODEL } from '../constants';
+import { callGeminiApi } from '../api/gemini';
 
-// FIX: Add missing code types to the output interface
 export interface GeneratedFiles {
   terraform: TerraformCode;
   backend: BackendCode;
@@ -25,11 +21,6 @@ export class GenerationAgent {
             throw new Error('Design output missing. Complete previous steps first.');
         }
         
-        const ai = new GoogleGenAI({ apiKey });
-
-        // For simplicity, we'll use a single large prompt here. In a real scenario,
-        // this would be broken into micro-agents like in DesignAgent.
-        // FIX: Update prompt to request all code types
         const prompt = `Based on the provided architecture plan, generate all necessary code files as a single JSON object.
 
         **Architecture Plan:**
@@ -48,7 +39,6 @@ export class GenerationAgent {
         All values must be complete, production-ready code strings.
         `;
 
-        // FIX: Update response schema to include all code types and required fields
         const responseSchema = {
             type: Type.OBJECT,
             properties: {
@@ -87,15 +77,9 @@ export class GenerationAgent {
         };
 
         try {
-            const response = await ai.models.generateContent({
-                model: GEMINI_MODEL,
-                contents: prompt,
-                config: { responseMimeType: 'application/json', responseSchema }
-            });
-
-            const output = JSON.parse(response.text.trim()) as GeneratedFiles;
+            const resultJson = await callGeminiApi(apiKey, prompt, responseSchema);
+            const output = JSON.parse(resultJson) as GeneratedFiles;
             
-            // FIX: Update validation to check for one of the new code types
             if (!output.terraform.main || !output.backend.serverTs || !output.testing.smokeTestSh) {
                 throw new Error("Generated code is incomplete.");
             }

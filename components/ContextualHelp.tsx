@@ -1,11 +1,8 @@
-
 import React, { useState, useContext, useRef, useEffect } from 'react';
-// Fix: Imported STEP_TITLES to resolve 'Cannot find name' error.
 import { ProjectState, Step, STEP_TITLES } from '../types';
 import { ApiKeyContext } from '../context/ApiKeyContext';
 import { progressManager } from '../utils/progressManager';
-import { GoogleGenAI } from '@google/genai';
-import { GEMINI_MODEL } from '../constants';
+import { callGeminiApi } from '../api/gemini';
 
 interface ContextualHelpProps {
   projectState: ProjectState;
@@ -36,15 +33,8 @@ const ContextualHelp: React.FC<ContextualHelpProps> = ({ projectState, updatePro
     setUserInput('');
 
     try {
-      const ai = new GoogleGenAI({ apiKey });
       const contextPrompt = progressManager.getContextForAI(projectState, prompt);
-
-      const response = await ai.models.generateContent({
-        model: GEMINI_MODEL,
-        contents: contextPrompt,
-      });
-
-      const result = response.text;
+      const result = await callGeminiApi(apiKey, contextPrompt);
       
       updateProjectState(prev => ({
         ...prev,
@@ -89,7 +79,7 @@ const ContextualHelp: React.FC<ContextualHelpProps> = ({ projectState, updatePro
         className="fixed bottom-6 right-6 bg-cyan-600 text-white rounded-full p-4 shadow-lg hover:bg-cyan-500 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-cyan-500 z-40"
         aria-label="Toggle AI Assistant"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M13 16h-2v-6h2v6zm-1-7.5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5 1.5-.673 1.5-1.5 1.5z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M13 16h-2v-6h2v6zm-1-7.5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5-1.5-.673 1.5-1.5 1.5z"></path></svg>
       </button>
       
       {isOpen && (

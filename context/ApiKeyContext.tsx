@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback, ReactNode } from 'react';
-import { GoogleGenAI } from '@google/genai';
+import { callGeminiApi } from '../api/gemini';
 
 type ApiKeyStatus = 'idle' | 'testing' | 'valid' | 'invalid';
 
@@ -26,12 +26,9 @@ export const ApiKeyProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }
     setStatus('testing');
     try {
-      const ai = new GoogleGenAI({ apiKey: key });
-      // A simple, low-cost call to validate the key
-      await ai.models.generateContent({
-        model: 'gemini-2.5-flash', // Use a fast model for validation
-        contents: 'test',
-      });
+      // Use the centralized API call for a simple validation
+      await callGeminiApi(key, 'test');
+      
       localStorage.setItem(API_KEY_STORAGE_KEY, key);
       setApiKey(key);
       setStatus('valid');
